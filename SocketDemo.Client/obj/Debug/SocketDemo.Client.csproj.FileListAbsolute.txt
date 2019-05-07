@@ -1,0 +1,10 @@
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\bin\Debug\SocketDemo.Client.exe
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\bin\Debug\SocketDemo.Client.pdb
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\bin\Debug\SocketDemo.Core.dll
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\bin\Debug\SocketDemo.Core.pdb
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\obj\Debug\SocketDemo.Client.csprojAssemblyReference.cache
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\obj\Debug\SocketDemo.Client.csproj.CoreCompileInputs.cache
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\obj\Debug\SocketDemo.Client.csproj.CopyComplete
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\obj\Debug\SocketDemo.Client.exe
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\obj\Debug\SocketDemo.Client.pdb
+D:\Workspace\NET\SocketDemo\SocketDemo.Client\bin\Debug\App_Data\data.zip

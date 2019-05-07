@@ -1,0 +1,6 @@
+D:\Workspace\NET\SocketDemo\SocketDemo.Core\bin\Debug\SocketDemo.Core.dll
+D:\Workspace\NET\SocketDemo\SocketDemo.Core\bin\Debug\SocketDemo.Core.pdb
+D:\Workspace\NET\SocketDemo\SocketDemo.Core\obj\Debug\SocketDemo.Core.csproj.CoreCompileInputs.cache
+D:\Workspace\NET\SocketDemo\SocketDemo.Core\obj\Debug\SocketDemo.Core.dll
+D:\Workspace\NET\SocketDemo\SocketDemo.Core\obj\Debug\SocketDemo.Core.pdb
+D:\Workspace\NET\SocketDemo\SocketDemo.Core\obj\Debug\SocketDemo.Core.csprojAssemblyReference.cache

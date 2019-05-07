@@ -6,6 +6,15 @@ using System.Text;
 namespace SocketDemo.Core.Message
 {
     /// <summary>
+    /// 消息类型枚举
+    /// </summary>
+    public enum MessageType : byte
+    {
+        Text = (byte)1,
+        File = (byte)2
+    }
+
+    /// <summary>
     /// 消息头
     /// </summary>
     public class Header
@@ -24,5 +33,10 @@ namespace SocketDemo.Core.Message
         /// 消息体长度
         /// </summary>
         public int BodyLen;
+
+        /// <summary>
+        /// 消息类型
+        /// </summary>
+        public MessageType MsgType;
     }
 }

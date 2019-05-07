@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ClientSocket.cs" />
     <Compile Include="ClientSocketManager.cs" />
+    <Compile Include="Message\FileMessage.cs" />
     <Compile Include="Message\Header.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\MessageParser.cs" />

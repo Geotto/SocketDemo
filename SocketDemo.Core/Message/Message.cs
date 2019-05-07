@@ -31,6 +31,7 @@ namespace SocketDemo.Core.Message
         public Message()
         {
             this.Header = new Header();
+            this.Header.MsgType = MessageType.Text;
         }
 
         /// <summary>
@@ -52,12 +53,26 @@ namespace SocketDemo.Core.Message
             using (MemoryStream stream = new MemoryStream())
             {
                 stream.WriteByte(this.Header.StartTag);
+                stream.WriteByte((byte)this.Header.MsgType);
                 stream.WriteByte(this.Header.BodyCrc);
                 WriteInt(stream, this.Header.BodyLen);
                 stream.Write(this.Body, 0, this.Body.Length);
 
                 return stream.ToArray();
             }
+        }
+
+        /// <summary>
+        /// 读取整型值
+        /// </summary>
+        /// <param name="ms">输入流</param>
+        /// <returns>数值</returns>
+        public static int ReadInt(MemoryStream ms)
+        {
+            byte[] data = new byte[4];
+            ms.Read(data, 0, data.Length);
+            int value = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
+            return IPAddress.NetworkToHostOrder(value);
         }
 
         /// <summary>

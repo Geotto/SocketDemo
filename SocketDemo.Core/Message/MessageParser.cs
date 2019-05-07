@@ -67,11 +67,12 @@ namespace SocketDemo.Core.Message
                 if (val == Message.StartTag)
                 {
                     //遇到开始标记
-                    if (offset + 5 <= totalSize)
+                    if (offset + 6 <= totalSize)
                     {
                         //长度足够，读取消息头
                         int pos = 1;
-                        byte bodyCrc = GetByteAt(offset, pos++);
+                        byte msgType = GetByteAt(offset, pos++);
+                        byte bodyCrc = GetByteAt(offset, pos++);                        
                         byte[] data = new byte[4];
                         data[0] = GetByteAt(offset, pos++);
                         data[1] = GetByteAt(offset, pos++);
@@ -82,14 +83,15 @@ namespace SocketDemo.Core.Message
 
                         Header header = new Header();
                         header.StartTag = val;
+                        header.MsgType = (MessageType)msgType;
                         header.BodyCrc = bodyCrc;
                         header.BodyLen = bodyLen;
 
-                        if (offset + 5 + bodyLen < totalSize)
+                        if (offset + 6 + bodyLen < totalSize)
                         {
                             //长度足够，读取消息体
                             byte[] body = new byte[bodyLen];
-                            FillByteArray(offset + 5 + 1, body, bodyLen);
+                            FillByteArray(offset + 6 + 1, body, bodyLen);
 
                             //计算crc
                             byte crc = 0;
@@ -111,7 +113,7 @@ namespace SocketDemo.Core.Message
                                     OnMessage.Invoke(message);
                                 }
 
-                                RemoveBefore(offset + 5 + message.Body.Length + 1);
+                                RemoveBefore(offset + 6 + message.Body.Length + 1);
                             }
                             else
                             {
@@ -192,19 +194,19 @@ namespace SocketDemo.Core.Message
                 {
                     if (len - pos <= bufferList[i].Length)
                     {
-                        Array.Copy(bufferList[i], begin - sum, dest, pos, len - pos);
+                        int start = sum < begin ? begin - sum : 0;
+                        Array.Copy(bufferList[i], start, dest, pos, len - pos);
                         return;
                     }
                     else
                     {
-                        Array.Copy(bufferList[i], begin - sum, dest, pos, bufferList[i].Length);
-                        pos += bufferList[i].Length;
+                        int start = sum < begin ? begin - sum : 0;
+                        Array.Copy(bufferList[i], start, dest, pos, bufferList[i].Length - start);
+                        pos += bufferList[i].Length - start;
                     }
                 }
-                else
-                {
-                    sum += bufferList[i].Length;
-                }
+
+                sum += bufferList[i].Length;
             }
 
             throw new ArgumentOutOfRangeException();

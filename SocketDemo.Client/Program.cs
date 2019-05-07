@@ -2,6 +2,7 @@
 using SocketDemo.Core.Message;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -22,9 +23,48 @@ namespace SocketDemo.Client
             String line = Console.ReadLine();
             while (line != "exit")
             {
-                Message req = new Message();
-                req.Body = Encoding.UTF8.GetBytes(line);
-                client.Send(req.Serialize());
+                string[] columns = line.Split(new char[] { '\t', ' ', '\r', '\n' }, 2);
+                if(columns.Length == 2)
+                {
+                    switch (columns[0].Trim())
+                    {
+                        case "text":
+                            Message message = new Message();
+                            message.Body = Encoding.UTF8.GetBytes(columns[1]);
+                            client.Send(message.Serialize());
+                            break;
+
+                        case "file":
+                            FileMessage fileMessage = new FileMessage();
+                            FileInfo file = new FileInfo(columns[1]);
+                            fileMessage.FileName = file.Name;
+                            if (file.Exists)
+                            {
+                                byte[] buf = new byte[1024];
+                                using (MemoryStream ms = new MemoryStream())
+                                {
+                                    using (FileStream stream = File.OpenRead(columns[1]))
+                                    {
+                                        int len = stream.Read(buf, 0, buf.Length);
+                                        while (len > 0)
+                                        {
+                                            ms.Write(buf, 0, len);
+                                            len = stream.Read(buf, 0, buf.Length);
+                                        }
+                                    }
+
+                                    fileMessage.Data = ms.ToArray();
+                                }
+
+                                client.Send(fileMessage.Serialize());
+                            }
+                            else
+                            {
+                                Console.WriteLine("no such file or directory: {0}", columns[1]);
+                            }
+                            break;
+                    }
+                }
 
                 Console.Write("> ");
                 line = Console.ReadLine();
